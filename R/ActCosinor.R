@@ -3,18 +3,21 @@
 #'
 #'
 #' @param x \code{vector} vector of dimension n*1440 which reprsents n days of 1440 minute activity data
-#' @param window The calcuation needs to understand what is the window size of the data
+#' @param window The calculation needs the window size of the data. E.g window = 1 means each epoch is in one-minute window.
 #'
 #'
 #' @importFrom cosinor cosinor.lm
 #' @importFrom cosinor2 correct.acrophase
 #'
 #' @return A list with elements
-#' \item{mes}{mesor}
-#' \item{amp}{amplitude}
-#' \item{acro}{acrophase in negative radians}
-#' \item{acrotime}{acrophase in time domain (hour)}
+#' \item{mes}{MESOR which is short for midline statistics of rhythm, which is a rhythm adjusted mean. This represents mean activity level.}
+#' \item{amp}{amplitude, a measure of half the extend of predictable variation within a cycle. This represents the highest activity one can achieve.}
+#' \item{acro}{acrophase, a meaure of the time of the overall high values recurring in each cycle. Here it has a unit of radian. This represents time to reach the peak.}
+#' \item{acrotime}{acrophase in the unit of the time (hours)}
+#' \item{ndays}{Number of days modeled}
 #'
+#'
+#' @references Cornelissen, G. Cosinor-based rhythmometry. Theor Biol Med Model 11, 16 (2014). https://doi.org/10.1186/1742-4682-11-16
 #' @export
 #' @examples
 #' count1 = c(t(example_activity_data$count[1,-c(1,2)]))
