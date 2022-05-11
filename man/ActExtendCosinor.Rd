@@ -8,7 +8,8 @@ ActExtendCosinor(
   x,
   window = 1,
   lower = c(0, 0, -1, 0, -3),
-  upper = c(Inf, Inf, 1, Inf, 27)
+  upper = c(Inf, Inf, 1, Inf, 27),
+  export_ts = FALSE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ ActExtendCosinor(
 \item{lower}{A numeric vector of lower bounds on each of the five parameters (in the order of minimum, amplitude, alpha, beta, acrophase) for the NLS. If not given, the default lower bound for each parameter is set to \code{-Inf}.}
 
 \item{upper}{A numeric vector of upper bounds on each of the five parameters (in the order of minimum, amplitude, alpha, beta, acrophase) for the NLS. If not given, the default lower bound for each parameter is set to \code{Inf}}
+
+\item{export_ts}{A Boolean to indicate whether time series should be exported}
 }
 \value{
 A list with elements
@@ -32,13 +35,14 @@ A list with elements
 \item{DownMesor}{Time of day of switch from high to low activity. Represents the timing of the rest-activity rhythm. Lower (earlier) values indicate decline in activity earlier in the day, suggesting a more advanced circadian phase.}
 \item{MESOR}{A measure analogous to the MESOR of the cosine model (or half the deflection of the curve) can be obtained from mes=min+amp/2. However, it goes through the middle of the peak, and is therefore not equal to the MESOR of the cosine model, which is the mean of the data.}
 \item{ndays}{Number of days modeled.}
+\item{cosinor_ts}{Exported data frame with time, time over days, original time series, fitted time series using cosinor model from step 1, and fitted extended cosinor model from step 2}
 }
 \description{
 Extended cosinor model based on sigmoidally transformed cosine curve using anti-logistic transformation
 }
 \examples{
-count1 = c(t(example_activity_data$count[1,-c(1,2)]))
-cos_coeff = ActExtendCosinor(x = count1, window = 1)
+count1 = c(t(example_activity_data$count[c(1:2),-c(1,2)]))
+cos_coeff = ActExtendCosinor(x = count1, window = 1,export_ts = TRUE)
 }
 \references{
 Marler MR, Gehrman P, Martin JL, Ancoli-Israel S. The sigmoidally transformed cosine curve: a mathematical model for circadian rhythms with symmetric non-sinusoidal shapes. Stat Med.
